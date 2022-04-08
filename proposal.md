@@ -1,3 +1,7 @@
+Brandon Kim
+
+Shinakrit Phanutaiwat
+
 # The Big Idea
 
 The main idea of our project is we want to create a blackjack game in python where the user can input their decisions. We’ll explore the topics of creating a web app with flask and object-oriented programming from in-class. Our minimum viable product is a simple text interface that takes user input and prints the results of the card game, while our stretch goal is to make a web app for the user to play the game through.
