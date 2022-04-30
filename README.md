@@ -4,11 +4,11 @@ The following instructions are intended for use with a Visual Studio Code enviro
 
 **Prerequisites:**
 - Install Python 3
-- Install Flask
-  - In windows, open command prompt or powershell and type “pip install flask”
 - Install a Python IDE
   - We are using Microsoft Visual Code Studio
   - Download the zip file containing the Blackjack Application
+- Install Flask
+  - In windows, open command prompt or powershell and type “pip install flask”
 
 **How to run**
 - Open the file app.py and run it. 
