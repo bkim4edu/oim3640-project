@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+  <table>
+    <tbody>
+      <tr style="height: 200px">
+        <td class="row1">Dealer
+          <p style="min-height: 20px;">
+          {% if dealer.hand|length > 0 %}
+          Handvalue: ? + {{ dealer.hand[1].truevalue }}
+          {% endif %}
+          </p>
+        </td>
+        <td class="row2 left_align">
+          {% for x in range(dealer.hand|length) %}
+          {% if x == 0 %}
+          <img src="../static/cards/back.png" alt="dealer card {{ x }}" style="width:150px">
+          {% else %}
+          <img src="../static/cards/{{ dealer.hand[x].value}}{{ dealer.hand[x].color }}.png" alt="dealer card {{ x }}" style="max-width:150px">
+          {% endif %}
+          {% endfor %}
+        </td>
+        <td class="row3"><img src="../static/cards/deck.png" alt="deck of cards" style="max-width:150px">
+        </td>
+      </tr>
+      <tr style="height:120px">
+        <td>
+          {% if user.bet == 0 %}
+          <form action="/game" method="post">
+            <p>
+              <input id ="chips" autocomplete="off" autofocus class="form-control" name="bet" placeholder="# Chips" type="number" min="1" max="{{ chips }}"><br>
+            </p>
+            <button id="placebet" type="submit" disabled>Place Bet</button>
+          </form>
+          {% else %}
+          <p>
+            Bet: {{ user.bet }}
+          </p>
+          {% endif %}
+        </td>
+        <td>
+          {% for x in range(chips|length) %}
+          <img src="../static/chips/{{chips[x]}}.png" alt="poker chip" style="max-width:10%;">
+          {% endfor %}
+        </td>
+         <td></td>
+      </tr>
+      <tr style="height: 200px">
+        <td>{{ user.name }}<br>Chips: {{ user.chips }}
+          <p style="min-height: 20px;">
+          {% if user.hand|length > 0 %}
+          Handvalue: {{ user.handvalue }}
+          {% endif %}
+          </p>
+        </td>
+        <td class="left_align">
+          {% for x in range(user.hand|length) %}
+          <img src="../static/cards/{{ user.hand[x].value}}{{ user.hand[x].color }}.png" style="width:150px">
+          {% endfor %}
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+<p>
+  <!--If-conditions from flask which button may be displayed-->
+  {% if actions['card'] %}
+  <form action="/game" method="post">
+  <button name="card" type="submit" style="width: 80px;">Hit</button>
+  </form>
+  {% endif %}
+  {% if actions['hold'] %}
+  <form action="/hold" method="get">
+  <button name="hold" type="submit" style="width: 80px;">Stand</button>
+  </form>
+  {% endif %}
+  {% if actions['double'] %}
+  <form action="/double" method="get">
+  <button name="double" type="submit" style="width: 80px;">Double</button>
+  </form>
+  {% endif %}
+</p>
+<script>
+  //only allowing bet to be placed if > 0
+  document.querySelector("#chips").onchange = function() {
+    if (document.querySelector("#chips").value <= 0 || document.querySelector("#chips").value === "") {
+      document.querySelector("#placebet").disabled = true;
+    } else {
+      document.querySelector("#placebet").disabled = false;
+    }
+  }
+  document.querySelector("#chips").onkeyup = function() {
+    if (document.querySelector("#chips").value <= 0 || document.querySelector("#chips").value === "") {
+      document.querySelector("#placebet").disabled = true;
+    } else {
+      document.querySelector("#placebet").disabled = false;
+    }
+  }
+</script>
+
+{% endblock %}

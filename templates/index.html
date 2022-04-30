@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+<form class="must-center" action="/" method="post">
+    <p>
+        <input style="width: 25%; font-size: large;" autocomplete="off" autofocus class="form-control" name="name" placeholder="Put Your Name" type="text">
+    </p>
+    <p>
+        <input style="width: 15%; font-size: large" name="chips" placeholder="# Chips" type="number" min="1" max="100">
+    </p>
+    <button type="submit">Play BlackJack Extreme!</button>
+</form>
+{% endblock %}

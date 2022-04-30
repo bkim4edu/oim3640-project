@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+  <table>
+    <tbody>
+      <tr style="height: 200px">
+        <td class="row1">Dealer
+          <p style="min-height: 18px;">
+            Handvalue: {{ dealer.handvalue }}
+          </p>
+        </td>
+        <td class="row2 left_align">
+          {% for x in range(dealer.hand|length) %}
+          <img src="../static/cards/{{ dealer.hand[x].value}}{{ dealer.hand[x].color }}.png" alt="dealer card {{ x }}" style="max-width:150px">
+          {% endfor %}
+        </td>
+        <td class="row3"><img src="../static/cards/deck.png" alt="deck of cards" style="max-width:150px"></td>
+      </tr>
+      <tr style="height:120px">
+        <td>
+          <p>
+            Bet: {{ bet }}
+          </p>
+        </td>
+        <td>
+          {% for x in range(chips|length) %}
+          <img src="../static/chips/{{chips[x]}}.png" alt="poker chip" style="max-width:10%;">
+          {% endfor %}
+        </td>
+         <td>
+           Result of the game:
+           <p style="font-weight: bolder; color: white">
+           {% if winner == "tied" %}
+            Tied (equal handvalue : {{user.handvalue }})
+           {% elif winner == "dealer" %}
+            Dealer wins!
+           {% elif winner == "dealerblackjack" %}
+            Dealer wins with a blackjack!
+           {% elif winner == "blackjack" %}
+            {{ user.name }} wins with a BlackJack!
+           {% elif winner == "user" %}
+            {{ user.name }} wins with higher handvalue of {{ user.handvalue }}!
+           {% elif winner == "toomuchuser" %}
+            Dealer wins! - {{ user.name }} loses with handvalue  {{ user.handvalue }} (> 21)
+           {% elif winner == "toomuchdealer" %}
+           {{ user.name }} wins! - Dealer loses with handvalue {{ dealer.handvalue }} (> 21)
+           {% endif %}
+          </p>
+         </td>
+      </tr>
+      <tr style="height: 200px">
+        <td>{{ user.name }}<br>Chips: {{ user.chips }}
+          <p style="min-height: 18px;">
+            Handvalue: {{ user.handvalue }}
+          </p>
+        </td>
+        <td class="left_align">
+          {% for x in range(user.hand|length) %}
+          <img src="../static/cards/{{ user.hand[x].value}}{{ user.hand[x].color }}.png" style="width:150px">
+          {% endfor %}
+        </td>
+        <td>
+          <form action="/game" method="get">
+            <button name="card" type="submit" style="width: 80px;">Play again!</button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+{% endblock %}
